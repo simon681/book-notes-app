@@ -1,0 +1,46 @@
+<%- include("partials/header.ejs") %>
+
+<h2>Books I’ve read</h2>
+
+<p>
+  Tiny summary but <strong>detailed notes for each</strong>. This page will constantly update as I read more.
+</p>
+
+<p>
+  Sorted with my top recommendations up top.
+  Sort by <a href="/?sort=title">title</a>,
+  <a href="/?sort=date_read">newest</a>, or
+  <a href="/?sort=rating">best</a>.
+</p>
+
+<hr>
+
+<% if (books.length === 0) { %>
+  <p>No books added yet.</p>
+<% } else { %>
+  <% books.forEach(book => { %>
+    <div class="book-entry">
+      <div class="book-cover">
+        <% if (book.cover_id) { %>
+          <img src="<%= getCoverUrl(book.cover_id) %>" alt="Cover of <%= book.title %>">
+        <% } else { %>
+          <div class="placeholder-cover">No Cover</div>
+        <% } %>
+      </div>
+      <div class="book-details">
+        <h3><%= book.title %> - by <%= book.author %></h3>
+        <p class="meta">
+          <strong>Date read:</strong> <%= book.date_read.toISOString().split("T")[0] %>. 
+          <strong>How strongly I recommend it:</strong> <%= book.rating %>/10
+        </p>
+        <p><%= book.review %></p>
+        <form action="/delete/<%= book.id %>" method="POST" onsubmit="return confirm('Delete this book?');">
+          <button type="submit">🗑 Delete</button>
+        </form>
+      </div>
+    </div>
+    <hr>
+  <% }); %>
+<% } %>
+
+<%- include("partials/footer.ejs") %>
