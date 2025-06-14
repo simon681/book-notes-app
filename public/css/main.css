@@ -1,65 +1,105 @@
-/* General Reset and Base */
+/* Base Reset */
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
+  font-family: Georgia, serif;
+  background-color: #fdfdfd;
   margin: 0;
   padding: 2rem;
-  color: #333;
+  color: #222;
 }
 
 a {
   color: #2d87f0;
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: underline;
 }
 
-.container {
-  max-width: 900px;
-  margin: auto;
-  background: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.05);
-}
-
 h1, h2 {
-  color: #222;
-  margin-top: 0;
+  font-weight: normal;
+  margin-bottom: 0.5rem;
 }
 
-/* Book List Grid */
-.book-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
+hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 2rem 0;
 }
 
-.book-card {
-  background: #fafafa;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1rem;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+/* Book Entry Layout */
+.book-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin: 2rem 0;
 }
 
-.book-card img {
-  width: 100px;
+.book-cover img {
+  width: 160px;
   height: auto;
-  margin-bottom: 1rem;
-  border-radius: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-/* Form Styles */
+.placeholder-cover {
+  width: 160px;
+  height: 220px;
+  background-color: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-size: 0.9rem;
+  border: 1px dashed #ccc;
+  border-radius: 6px;
+}
+
+.book-details {
+  flex: 1;
+}
+
+.book-details h3 {
+  font-size: 1.1rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.book-details .meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+button {
+  padding: 6px 12px;
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #d32f2f;
+}
+
+/* Footer */
+footer {
+  margin-top: 3rem;
+  text-align: center;
+  color: #999;
+  font-size: 0.85rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+
+/* Form */
 .book-form {
+  max-width: 600px;
   background: #fafafa;
-  padding: 1rem;
+  padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid #ddd;
-  max-width: 600px;
 }
 
 .book-form input,
@@ -74,23 +114,10 @@ h1, h2 {
 }
 
 .book-form button {
-  padding: 10px 20px;
-  font-weight: bold;
   background-color: #2d87f0;
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .book-form button:hover {
   background-color: #0059b3;
-}
-
-/* Footer */
-footer {
-  margin-top: 3rem;
-  text-align: center;
-  color: #888;
-  font-size: 0.9rem;
 }

@@ -3,27 +3,63 @@
 <h2>Add a New Book</h2>
 
 <form action="/add" method="POST" class="book-form">
-  <label for="title">📘 Title:</label><br>
-  <input type="text" id="title" name="title" required><br><br>
+  <label for="title">📘 Title:</label>
+  <input type="text" id="title" name="title" required>
 
-  <label for="author">✍️ Author:</label><br>
-  <input type="text" id="author" name="author" required><br><br>
+  <label for="author">✍️ Author:</label>
+  <input type="text" id="author" name="author" required>
 
-  <label for="rating">⭐ Rating (out of 10):</label><br>
-  <input type="number" id="rating" name="rating" min="1" max="10"><br><br>
+  <label for="rating">⭐ Rating (out of 10):</label>
+  <input type="number" id="rating" name="rating" min="1" max="10">
 
-  <label for="date_read">📅 Date Read:</label><br>
-  <input type="date" id="date_read" name="date_read"><br><br>
+  <label for="date_read">📅 Date Read:</label>
+  <input type="date" id="date_read" name="date_read">
 
-  <label for="review">📝 Review:</label><br>
-  <textarea id="review" name="review" rows="5" cols="40"></textarea><br><br>
+  <label for="review">📝 Review:</label>
+  <textarea id="review" name="review" rows="5"></textarea>
 
-  <label for="cover_id">🖼 Cover ID (from Open Library):</label><br>
-  <input type="text" id="cover_id" name="cover_id" placeholder="e.g. 8675309"><br><br>
+  <!-- Cover ID Field (can be autofilled) -->
+  <label for="cover_id">🖼 Cover ID:</label>
+  <input type="text" id="cover_id" name="cover_id" required>
+
+  <!-- Optional: Lookup Cover by Title & Author -->
+  <h3>🔍 Find Cover ID from Open Library</h3>
+  <label for="searchTitle">Search Title:</label>
+  <input type="text" id="searchTitle" placeholder="e.g. Atomic Habits">
+
+  <label for="searchAuthor">Search Author:</label>
+  <input type="text" id="searchAuthor" placeholder="e.g. James Clear">
+
+  <button type="button" onclick="fetchCover()">Find Cover</button>
+
+  <div id="coverPreview" style="margin-top: 10px;"></div>
 
   <button type="submit">Add Book</button>
 </form>
 
 <p style="margin-top: 20px;"><a href="/">⬅ Back to Home</a></p>
+
+<script>
+  async function fetchCover() {
+    const title = document.getElementById("searchTitle").value;
+    const author = document.getElementById("searchAuthor").value;
+
+    const response = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(title)}&author=${encodeURIComponent(author)}`);
+    const data = await response.json();
+
+    if (data.docs.length > 0 && data.docs[0].cover_i) {
+      const coverId = data.docs[0].cover_i;
+      const imageUrl = `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`;
+
+      document.getElementById("cover_id").value = coverId;
+      document.getElementById("coverPreview").innerHTML = `
+        <img src="${imageUrl}" alt="Cover Preview" style="max-height: 200px; margin-top: 10px;">
+        <p>✅ Found Cover ID: <strong>${coverId}</strong></p>
+      `;
+    } else {
+      document.getElementById("coverPreview").innerHTML = `<p style="color:red;">❌ No cover found.</p>`;
+    }
+  }
+</script>
 
 <%- include("partials/footer.ejs") %>
