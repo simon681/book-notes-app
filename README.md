@@ -103,7 +103,7 @@ Visit `http://localhost:3000` in your browser.
 
 ## 📷 Screenshot
 
-*(Add a screenshot of your app here once complete)*
+![Image of project](image.png)
 
 ---
 
